@@ -29,10 +29,12 @@ jobs:
       if: github.event_name != 'pull_request' && startsWith(github.ref, 'refs/tags/') && success()
       run: |
         DOCKER_BUILDKIT=1 docker build --no-cache -t aisuko/go-log:${GITHUB_SHA::7} go-log
+        DOCKER_BUILDKIT=1 docker build --no-cache -t aisuko/java-log:${GITHUB_SHA::7} java-log
     - name: Docker push
       if: github.event_name != 'pull_request' && startsWith(github.ref, 'refs/tags/') && success()
       run: |
         docker push aisuko/go-log:${GITHUB_SHA::7}
+        docker push aisuko/java-log:${GITHUB_SHA::7}
     - name: Docker Hub Description
       if: github.event_name != 'pull_request' && startsWith(github.ref, 'refs/tags/') && success()
       uses: peter-evans/dockerhub-description@v2.0.0
